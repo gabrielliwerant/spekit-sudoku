@@ -1,0 +1,11 @@
+*.log
+*.html
+*.md
+*.json
+
+.babelrc
+.gitignore
+.prettierignore
+
+dist
+node_modules
