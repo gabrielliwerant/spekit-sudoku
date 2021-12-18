@@ -4,7 +4,7 @@
  * Main entry point for react.
  */
 
-import React from 'react';
+import React from "react";
 
 const App = () => <div>Hello World!</div>;
 
