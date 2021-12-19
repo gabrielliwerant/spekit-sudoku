@@ -12,9 +12,11 @@ const API_ROOT = 'https://vast-chamber-17969.herokuapp.com';
 const initialState = {
   board: {
     ui: {
-      isPending: false,
-      hasSuccess: false,
-      hasError: false
+      generate: {
+        isPending: false,
+        hasSuccess: true,
+        hasError: false
+      }
     },
     difficulty: 'easy',
     puzzle: {
@@ -46,23 +48,28 @@ const generateByDifficulty = createAsyncThunk(
 const boardSlice = createSlice({
   name: 'board',
   initialState: initialState.board,
-  reducers: {},
+  reducers: {
+    change: (state, action) => {
+      state.puzzle.data[action.payload.key] = action.payload.value;
+    }
+  },
   extraReducers: {
     [generateByDifficulty.pending]: state => {
-      state.ui.isPending = true;
-      state.ui.hasSuccess = false;
-      state.ui.hasError = false;
+      state.ui.generate.isPending = true;
+      state.ui.generate.hasSuccess = false;
+      state.ui.generate.hasError = false;
     },
     [generateByDifficulty.fulfilled]: (state, action) => {
-      state.ui.isPending = false;
-      state.ui.hasSuccess = true;
-      state.ui.hasError = false;
+      state.ui.generate.isPending = false;
+      state.ui.generate.hasSuccess = true;
+      state.ui.generate.hasError = false;
       state.puzzle.data = action.payload.data.puzzle;
+      state.puzzle.original = action.payload.data.puzzle;
     },
     [generateByDifficulty.rejected]: state => {
-      state.ui.isPending = false;
-      state.ui.hasSuccess = false;
-      state.ui.hasError = true;
+      state.ui.generate.isPending = false;
+      state.ui.generate.hasSuccess = false;
+      state.ui.generate.hasError = true;
     }
   }
 });
