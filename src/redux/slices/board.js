@@ -46,6 +46,18 @@ const boardSlice = createSlice({
   name: 'board',
   initialState: initialState,
   reducers: {
+    setPuzzle: (state, action) => {
+      const flatOrdering = state.puzzle.ordering.flat();
+      const flatSolution = action.payload.solution.flat();
+
+      state.puzzle.data = flatOrdering.reduce(
+        (prev, cur, i) => ({
+          ...prev,
+          [cur]: `${flatSolution[i]}`
+        }),
+        {}
+      );
+    },
     change: (state, action) => {
       state.puzzle.data[action.payload.key] = action.payload.value;
     }

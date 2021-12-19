@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
@@ -9,6 +9,7 @@ import {
   selectOriginal,
   selectHasSuccess
 } from '../redux/selectors/board';
+import { selectSolution } from '../redux/selectors/solve';
 import { boardSlice } from '../redux/slices/board';
 
 import GenerateButton from './GenerateButton';
@@ -57,7 +58,16 @@ const isMultipleOfThreeButNotNine = n => (n + 1) % 3 === 0 && (n + 1) % 9 !== 0;
 
 const Main = props => {
   const classes = useStyles();
-  const { ordering, puzzle, original, hasSuccess, change } = props;
+  const {
+    ordering,
+    puzzle,
+    original,
+    hasSuccess,
+    hasSolution,
+    solution,
+    set,
+    change
+  } = props;
   const onKeyDown = e => {
     const value = parseInt(e.key, 10);
 
@@ -70,6 +80,10 @@ const Main = props => {
     if (parseInt(value, 10) < 1 || parseInt(value, 10) > 9) return;
     else change(key, value);
   };
+
+  useEffect(() => {
+    if (hasSolution) set(solution);
+  }, [hasSolution]);
 
   return (
     <>
@@ -113,6 +127,9 @@ Main.propTypes = {
   puzzle: PropTypes.object,
   original: PropTypes.object,
   hasSuccess: PropTypes.bool,
+  hasSolution: PropTypes.bool,
+  solution: PropTypes.array,
+  set: PropTypes.func.isRequired,
   change: PropTypes.func.isRequired
 };
 
@@ -120,6 +137,8 @@ Main.defaultProps = {
   ordering: [],
   puzzle: {},
   original: {},
+  hasSolution: false,
+  solution: null,
   hasSuccess: false
 };
 
@@ -127,10 +146,13 @@ const mapStateToProps = state => ({
   ordering: selectOrdering(state),
   puzzle: selectPuzzleData(state),
   original: selectOriginal(state),
-  hasSuccess: selectHasSuccess(state)
+  hasSuccess: selectHasSuccess(state),
+  hasSolution: !!selectSolution(state),
+  solution: selectSolution(state)
 });
 
 const mapDispatchToProps = {
+  set: solution => boardSlice.actions.setPuzzle({ solution }),
   change: (key, value) => boardSlice.actions.change({ key, value })
 };
 

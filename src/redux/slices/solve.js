@@ -7,6 +7,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+import { convertObjectToFormData } from '../../utilities';
+
 const API_ROOT_CREATE = 'https://sugoku.herokuapp.com';
 
 const initialState = {
@@ -15,14 +17,14 @@ const initialState = {
     hasSuccess: true,
     hasError: false
   },
-  solution: []
+  solution: null
 };
 
 const solve = createAsyncThunk('post/solve', (options, thunkAPI) =>
   axios({
     method: 'post',
     url: `${API_ROOT_CREATE}/solve`,
-    data: encodeURIComponent(JSON.stringify({ board: options.board })),
+    data: convertObjectToFormData(options.board),
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }
