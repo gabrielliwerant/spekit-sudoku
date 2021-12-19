@@ -6,11 +6,13 @@
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-import { boardSlice } from './slices';
+import { boardSlice } from './slices/board';
+import { validateSlice } from './slices/validate';
 
 const store = configureStore({
   reducer: combineReducers({
-    board: boardSlice.reducer
+    board: boardSlice.reducer,
+    validate: validateSlice.reducer
   }),
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -18,7 +20,9 @@ const store = configureStore({
         // Ignore thunk warnings
         ignoredActions: [
           'fetch/generateByDifficulty/fulfilled',
-          'fetch/generateByDifficulty/rejected'
+          'fetch/generateByDifficulty/rejected',
+          'post/validate/fulfilled',
+          'post/validate/rejected'
         ]
       }
     })

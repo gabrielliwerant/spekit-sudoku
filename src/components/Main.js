@@ -6,12 +6,14 @@ import { createUseStyles } from 'react-jss';
 import {
   selectOrdering,
   selectPuzzleData,
+  selectOriginal,
   selectIsPending,
   selectHasSuccess,
-  selectHasError,
-  selectOriginal
-} from '../redux/selectors';
-import { boardSlice, generateByDifficulty } from '../redux/slices';
+  selectHasError
+} from '../redux/selectors/board';
+import { boardSlice, generateByDifficulty } from '../redux/slices/board';
+
+import ValidateButton from './ValidateButton';
 
 const classNames = require('classnames');
 
@@ -83,6 +85,7 @@ const Main = props => {
     <>
       <h1>Spekit Sudoku</h1>
       <button onClick={handleOnClick}>Generate Sudoku</button>
+      <ValidateButton />
       {isPending && <div>Loading...</div>}
       {hasError && <div>Error loading puzzle</div>}
       {hasSuccess && (

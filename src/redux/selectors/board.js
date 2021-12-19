@@ -1,7 +1,7 @@
 /**
- * selectors.js
+ * selectors/board.js
  *
- * Creates selectors for accessing redux store.
+ * Creates board selectors for accessing redux store.
  */
 
 const selectBoard = state => state.board;
@@ -10,11 +10,10 @@ const selectOrdering = state => selectPuzzle(state).ordering;
 const selectPuzzleData = state => selectPuzzle(state).data;
 const selectOriginal = state => selectPuzzle(state).original;
 
-const selectBoardUi = state => selectBoard(state).ui;
-const selectBoardUiGenerate = state => selectBoardUi(state).generate;
-const selectIsPending = state => selectBoardUiGenerate(state).isPending;
-const selectHasSuccess = state => selectBoardUiGenerate(state).hasSuccess;
-const selectHasError = state => selectBoardUiGenerate(state).hasError;
+const selectUi = state => selectBoard(state).ui;
+const selectIsPending = state => selectUi(state).isPending;
+const selectHasSuccess = state => selectUi(state).hasSuccess;
+const selectHasError = state => selectUi(state).hasError;
 
 export {
   selectOrdering,
