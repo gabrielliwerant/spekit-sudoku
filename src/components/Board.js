@@ -82,8 +82,8 @@ const Board = props => {
                 onChange={onChange(cell)}
                 className={classNames({
                   [classes.cell]: true,
-                  [classes.rightBorder]: isMultipleOfThreeButNotNine(j),
-                  [classes.bottomBorder]: isMultipleOfThreeButNotNine(i)
+                  [classes.rightBorder]: isMultipleOfThreeButNotNine(j + 1),
+                  [classes.bottomBorder]: isMultipleOfThreeButNotNine(i + 1)
                 })}
               />
             </li>
