@@ -60,6 +60,7 @@ const boardSlice = createSlice({
       state.ui.isPending = false;
       state.ui.hasSuccess = true;
       state.ui.hasError = false;
+      state.difficulty = action.payload.data.difficulty;
       state.puzzle.data = action.payload.data.puzzle;
       state.puzzle.original = action.payload.data.puzzle;
     },

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
 import {
+  selectDifficulty,
   selectOrdering,
   selectPuzzleData,
   selectOriginal,
@@ -58,6 +59,7 @@ const isMultipleOfThreeButNotNine = n => (n + 1) % 3 === 0 && (n + 1) % 9 !== 0;
 const Main = props => {
   const classes = useStyles();
   const {
+    difficulty,
     ordering,
     puzzle,
     original,
@@ -84,6 +86,7 @@ const Main = props => {
   return (
     <>
       <h1>Spekit Sudoku</h1>
+      <div>{difficulty}</div>
       <button onClick={handleOnClick}>Generate Sudoku</button>
       <ValidateButton />
       {isPending && <div>Loading...</div>}
@@ -120,6 +123,7 @@ const Main = props => {
 };
 
 Main.propTypes = {
+  difficulty: PropTypes.string,
   ordering: PropTypes.array,
   puzzle: PropTypes.object,
   original: PropTypes.object,
@@ -131,6 +135,7 @@ Main.propTypes = {
 };
 
 Main.defaultProps = {
+  difficulty: 'easy',
   ordering: [],
   puzzle: {},
   original: {},
@@ -140,6 +145,7 @@ Main.defaultProps = {
 };
 
 const mapStateToProps = state => ({
+  difficulty: selectDifficulty(state),
   ordering: selectOrdering(state),
   puzzle: selectPuzzleData(state),
   original: selectOriginal(state),

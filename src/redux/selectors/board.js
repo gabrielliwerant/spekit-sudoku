@@ -5,7 +5,10 @@
  */
 
 const selectBoard = state => state.board;
+
 const selectPuzzle = state => selectBoard(state).puzzle;
+const selectDifficulty = state => selectBoard(state).difficulty;
+
 const selectOrdering = state => selectPuzzle(state).ordering;
 const selectPuzzleData = state => selectPuzzle(state).data;
 const selectOriginal = state => selectPuzzle(state).original;
@@ -16,6 +19,7 @@ const selectHasSuccess = state => selectUi(state).hasSuccess;
 const selectHasError = state => selectUi(state).hasError;
 
 export {
+  selectDifficulty,
   selectOrdering,
   selectPuzzleData,
   selectOriginal,
