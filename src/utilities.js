@@ -20,4 +20,12 @@ const convertObjectToFormData = data => {
   return formData;
 };
 
-export { convertObjectToFormData };
+/**
+ * Determine if a given number is a multiple of 3 and not a multiple of 9.
+ *
+ * @param {number} n
+ * @returns {boolean}
+ */
+const isMultipleOfThreeButNotNine = n => (n + 1) % 3 === 0 && (n + 1) % 9 !== 0;
+
+export { convertObjectToFormData, isMultipleOfThreeButNotNine };

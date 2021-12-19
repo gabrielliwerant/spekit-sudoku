@@ -11,6 +11,7 @@ import {
 } from '../redux/selectors/board';
 import { selectSolution } from '../redux/selectors/solve';
 import { boardSlice } from '../redux/slices/board';
+import { isMultipleOfThreeButNotNine } from '../utilities';
 
 import GenerateButton from './GenerateButton';
 import SolveButton from './SolveButton';
@@ -53,8 +54,6 @@ const useStyles = createUseStyles({
     borderBottom: '3px solid #000'
   }
 });
-
-const isMultipleOfThreeButNotNine = n => (n + 1) % 3 === 0 && (n + 1) % 9 !== 0;
 
 const Main = props => {
   const classes = useStyles();
