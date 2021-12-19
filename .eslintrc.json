@@ -41,7 +41,7 @@
       "off"
     ],
     "linebreak-style": [
-      "error",
+      "off",
       "windows"
     ],
     "quotes": [
@@ -51,6 +51,10 @@
     "semi": [
       "error",
       "always"
+    ],
+    "arrow-parens": [
+      "error",
+      "as-needed"
     ]
   }
 }

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint */**/*.js",
+    "lint:fix": "eslint */**/*.js --fix",
     "prettier": "prettier --write .",
+    "prepare": "npm run prettier && npm run lint",
     "start": "webpack serve",
     "build": "webpack"
   },
