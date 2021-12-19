@@ -14,6 +14,7 @@ import {
 } from '../redux/selectors/board';
 import { boardSlice, generateByDifficulty } from '../redux/slices/board';
 
+import SolveButton from './SolveButton';
 import ValidateButton from './ValidateButton';
 
 const classNames = require('classnames');
@@ -89,6 +90,7 @@ const Main = props => {
       <div>{difficulty}</div>
       <button onClick={handleOnClick}>Generate Sudoku</button>
       <ValidateButton />
+      <SolveButton />
       {isPending && <div>Loading...</div>}
       {hasError && <div>Error loading puzzle</div>}
       {hasSuccess && (
