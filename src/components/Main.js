@@ -4,16 +4,14 @@ import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
 import {
-  selectDifficulty,
   selectOrdering,
   selectPuzzleData,
   selectOriginal,
-  selectIsPending,
-  selectHasSuccess,
-  selectHasError
+  selectHasSuccess
 } from '../redux/selectors/board';
-import { boardSlice, generateByDifficulty } from '../redux/slices/board';
+import { boardSlice } from '../redux/slices/board';
 
+import GenerateButton from './GenerateButton';
 import SolveButton from './SolveButton';
 import ValidateButton from './ValidateButton';
 
@@ -59,18 +57,7 @@ const isMultipleOfThreeButNotNine = n => (n + 1) % 3 === 0 && (n + 1) % 9 !== 0;
 
 const Main = props => {
   const classes = useStyles();
-  const {
-    difficulty,
-    ordering,
-    puzzle,
-    original,
-    isPending,
-    hasSuccess,
-    hasError,
-    generate,
-    change
-  } = props;
-  const handleOnClick = () => generate('easy');
+  const { ordering, puzzle, original, hasSuccess, change } = props;
   const onKeyDown = e => {
     const value = parseInt(e.key, 10);
 
@@ -87,12 +74,9 @@ const Main = props => {
   return (
     <>
       <h1>Spekit Sudoku</h1>
-      <div>{difficulty}</div>
-      <button onClick={handleOnClick}>Generate Sudoku</button>
+      <GenerateButton />
       <ValidateButton />
       <SolveButton />
-      {isPending && <div>Loading...</div>}
-      {hasError && <div>Error loading puzzle</div>}
       {hasSuccess && (
         <ol className={classes.board}>
           {ordering.map((row, i) => (
@@ -125,39 +109,28 @@ const Main = props => {
 };
 
 Main.propTypes = {
-  difficulty: PropTypes.string,
   ordering: PropTypes.array,
   puzzle: PropTypes.object,
   original: PropTypes.object,
-  isPending: PropTypes.bool,
   hasSuccess: PropTypes.bool,
-  hasError: PropTypes.bool,
-  generate: PropTypes.func.isRequired,
   change: PropTypes.func.isRequired
 };
 
 Main.defaultProps = {
-  difficulty: 'easy',
   ordering: [],
   puzzle: {},
   original: {},
-  isPending: false,
-  hasSuccess: false,
-  hasError: false
+  hasSuccess: false
 };
 
 const mapStateToProps = state => ({
-  difficulty: selectDifficulty(state),
   ordering: selectOrdering(state),
   puzzle: selectPuzzleData(state),
   original: selectOriginal(state),
-  isPending: selectIsPending(state),
-  hasSuccess: selectHasSuccess(state),
-  hasError: selectHasError(state)
+  hasSuccess: selectHasSuccess(state)
 });
 
 const mapDispatchToProps = {
-  generate: difficulty => generateByDifficulty({ difficulty }),
   change: (key, value) => boardSlice.actions.change({ key, value })
 };
 
