@@ -6,6 +6,7 @@
 .babelrc
 .gitignore
 .prettierignore
+jest.config.js
 webpack.config.js
 
 dist

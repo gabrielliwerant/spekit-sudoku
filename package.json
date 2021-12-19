@@ -7,7 +7,8 @@
     "lint": "eslint */**/*.js",
     "lint:fix": "eslint */**/*.js --fix",
     "prettier": "prettier --write .",
-    "prepare": "npm run prettier && npm run lint",
+    "test": "jest tests --verbose",
+    "prepare": "npm run prettier && npm run lint && npm test",
     "start": "webpack serve",
     "build": "webpack"
   },
@@ -37,6 +38,8 @@
     "eslint": "^7.16.0",
     "eslint-plugin-react": "^7.22.0",
     "html-webpack-plugin": "^5.3.1",
+    "jest": "^27.4.5",
+    "jsdom": "^19.0.0",
     "prettier": "^2.5.1",
     "prop-types": "^15.7.2",
     "react-jss": "^10.9.0",
