@@ -23,5 +23,6 @@ const selectBoard = state => {
     })
   );
 };
+const selectStatus = state => selectValidate(state).status;
 
-export { selectIsPending, selectHasError, selectBoard };
+export { selectIsPending, selectHasError, selectBoard, selectStatus };

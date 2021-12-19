@@ -5,18 +5,20 @@ import { connect } from 'react-redux';
 import {
   selectIsPending,
   selectHasError,
-  selectBoard
+  selectBoard,
+  selectStatus
 } from '../redux/selectors/validate';
 import { validate } from '../redux/slices/validate';
 
 const ValidateButton = props => {
-  const { isPending, hasError, validate, board } = props;
+  const { isPending, hasError, validate, board, status } = props;
   const handleOnClick = () => validate(board);
 
   return (
     <>
       {isPending && <div>Loading...</div>}
       {hasError && <div>Error validating puzzle</div>}
+      <div>{status}</div>
       <button onClick={handleOnClick}>Validate Sudoku</button>
     </>
   );
@@ -26,19 +28,22 @@ ValidateButton.propTypes = {
   isPending: PropTypes.bool,
   hasError: PropTypes.bool,
   validate: PropTypes.func.isRequired,
-  board: PropTypes.array
+  board: PropTypes.array,
+  status: PropTypes.string
 };
 
 ValidateButton.defaultProps = {
   isPending: false,
   hasError: false,
-  board: []
+  board: [],
+  status: 'unsolved'
 };
 
 const mapStateToProps = state => ({
   isPending: selectIsPending(state),
   hasError: selectHasError(state),
-  board: selectBoard(state)
+  board: selectBoard(state),
+  status: selectStatus(state)
 });
 
 const mapDispatchToProps = {
