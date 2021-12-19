@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createUseStyles } from 'react-jss';
 
 import {
   selectOrdering,
@@ -11,7 +12,29 @@ import {
 } from '../redux/selectors';
 import { generateByDifficulty } from '../redux/slices';
 
+const useStyles = createUseStyles({
+  '@global': {},
+  board: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  row: {
+    display: 'flex',
+    listStyle: 'none'
+  },
+  cell: {
+    width: '50px',
+    height: '50px',
+    fontSize: '35px',
+    textAlign: 'center',
+    '&::-webkit-inner-spin-button': {
+      display: 'none'
+    }
+  }
+});
+
 const Main = props => {
+  const classes = useStyles();
   const { ordering, puzzle, isPending, hasSuccess, hasError, generate } = props;
   const onClick = () => generate('easy');
 
@@ -22,11 +45,21 @@ const Main = props => {
       {isPending && <div>Loading...</div>}
       {hasError && <div>Error loading puzzle</div>}
       {hasSuccess && (
-        <ul>
-          {ordering.map(key => (
-            <li key={key}>{puzzle[key]}</li>
+        <ol className={classes.board}>
+          {ordering.map((row, i) => (
+            <ol key={i} className={classes.row}>
+              {row.map(cell => (
+                <li key={cell}>
+                  <input
+                    type="number"
+                    value={puzzle[cell] || null}
+                    className={classes.cell}
+                  />
+                </li>
+              ))}
+            </ol>
           ))}
-        </ul>
+        </ol>
       )}
     </>
   );

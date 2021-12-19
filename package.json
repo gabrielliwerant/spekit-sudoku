@@ -39,7 +39,7 @@
     "html-webpack-plugin": "^5.3.1",
     "prettier": "^2.5.1",
     "prop-types": "^15.7.2",
-    "react-jss": "^10.6.0",
+    "react-jss": "^10.9.0",
     "style-loader": "^2.0.0",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.2",
