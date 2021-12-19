@@ -1,28 +1,30 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const Main = () => {
-  const [board, setBoard] = useState("");
-  const onClick = () => {
-    axios
-      .get("https://vast-chamber-17969.herokuapp.com/generate?difficulty=easy")
-      .then((response) => {
-        setBoard(response.data.puzzle);
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+import {
+  selectOrdering,
+  selectPuzzleData,
+  selectIsPending,
+  selectHasSuccess,
+  selectHasError
+} from '../redux/selectors';
+import { generateByDifficulty } from '../redux/slices';
+
+const Main = props => {
+  const { ordering, puzzle, isPending, hasSuccess, hasError, generate } = props;
+  const onClick = () => generate('easy');
 
   return (
     <>
       <h1>Spekit Sudoku</h1>
       <button onClick={onClick}>Get Sudoku</button>
-      {board && (
+      {isPending && <div>Loading...</div>}
+      {hasError && <div>Error loading puzzle</div>}
+      {hasSuccess && (
         <ul>
-          {Object.keys(board).map((key) => (
-            <li key={key}>{`${key}, ${board[key]}`}</li>
+          {ordering.map(key => (
+            <li key={key}>{puzzle[key]}</li>
           ))}
         </ul>
       )}
@@ -30,4 +32,33 @@ const Main = () => {
   );
 };
 
-export default Main;
+Main.propTypes = {
+  ordering: PropTypes.array,
+  puzzle: PropTypes.object,
+  isPending: PropTypes.bool,
+  hasSuccess: PropTypes.bool,
+  hasError: PropTypes.bool,
+  generate: PropTypes.func.isRequired
+};
+
+Main.defaultProps = {
+  ordering: [],
+  puzzle: {},
+  isPending: false,
+  hasSuccess: false,
+  hasError: false
+};
+
+const mapStateToProps = state => ({
+  ordering: selectOrdering(state),
+  puzzle: selectPuzzleData(state),
+  isPending: selectIsPending(state),
+  hasSuccess: selectHasSuccess(state),
+  hasError: selectHasError(state)
+});
+
+const mapDispatchToProps = {
+  generate: difficulty => generateByDifficulty({ difficulty })
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
