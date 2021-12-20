@@ -8,6 +8,9 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Typography from '@mui/material/Typography';
 
 import { generateByDifficulty } from '../redux/slices/board';
+import { gradeSlice } from '../redux/slices/grade';
+import { solveSlice } from '../redux/slices/solve';
+import { validateSlice } from '../redux/slices/validate';
 import { DIFFICULTY } from '../constants';
 
 const useStyles = createUseStyles({
@@ -24,8 +27,13 @@ const useStyles = createUseStyles({
 
 const GenerateButton = props => {
   const classes = useStyles();
-  const { generate } = props;
-  const handleOnClick = difficulty => () => generate(difficulty);
+  const { generate, resetDifficulty, resetStatus, reset } = props;
+  const handleOnClick = difficulty => () => {
+    resetDifficulty();
+    resetStatus();
+    reset();
+    generate(difficulty);
+  };
 
   return (
     <>
@@ -68,11 +76,17 @@ const GenerateButton = props => {
 };
 
 GenerateButton.propTypes = {
-  generate: PropTypes.func.isRequired
+  generate: PropTypes.func.isRequired,
+  resetDifficulty: PropTypes.func.isRequired,
+  resetStatus: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = {
-  generate: difficulty => generateByDifficulty({ difficulty })
+  generate: difficulty => generateByDifficulty({ difficulty }),
+  resetDifficulty: gradeSlice.actions.resetDifficulty,
+  resetStatus: validateSlice.actions.resetStatus,
+  reset: solveSlice.actions.reset
 };
 
 export default connect(null, mapDispatchToProps)(GenerateButton);

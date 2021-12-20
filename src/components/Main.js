@@ -25,6 +25,7 @@ import Board from './Board';
 import ClearButton from './ClearButton';
 import Errors from './Errors';
 import GenerateButton from './GenerateButton';
+import GradeButton from './GradeButton';
 import Loading from './Loading';
 import SolveButton from './SolveButton';
 import ValidateButton from './ValidateButton';
@@ -102,8 +103,8 @@ const Main = props => {
     if (hasSolution && statusSolve === STATUS.SOLVED) {
       setPuzzle(solution);
       setStatus(STATUS.SOLVED);
-    } else {
-      setStatus(STATUS.UNSOLVABLE);
+    } else if (statusSolve === STATUS.UNSOLVABLE) {
+      setStatus(statusSolve);
     }
   }, [hasSolution, statusSolve]);
 
@@ -119,6 +120,7 @@ const Main = props => {
         <nav className={classes.actions}>
           <ClearButton />
           <ValidateButton />
+          <GradeButton />
           <SolveButton />
         </nav>
         {hasSuccess && <Board />}

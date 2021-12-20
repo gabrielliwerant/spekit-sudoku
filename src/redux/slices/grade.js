@@ -1,7 +1,7 @@
 /**
- * slices/solve.js
+ * slices/grade.js
  *
- * Handles redux actions, reducers, and initial state for solve concerns.
+ * Handles redux actions, reducers, and initial state for grade concerns.
  */
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
@@ -16,14 +16,13 @@ const initialState = {
     hasSuccess: false,
     hasError: false
   },
-  status: null,
-  solution: null
+  difficulty: null
 };
 
-const solve = createAsyncThunk('post/solve', (options, thunkAPI) =>
+const grade = createAsyncThunk('post/grade', (options, thunkAPI) =>
   axios({
     method: 'post',
-    url: `${API_ROOT_CREATE}/solve`,
+    url: `${API_ROOT_CREATE}/grade`,
     data: convertObjectToFormData(options.board),
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -33,29 +32,27 @@ const solve = createAsyncThunk('post/solve', (options, thunkAPI) =>
     .catch(error => thunkAPI.rejectWithValue(error))
 );
 
-const solveSlice = createSlice({
-  name: 'solve',
+const gradeSlice = createSlice({
+  name: 'grade',
   initialState: initialState,
   reducers: {
-    reset: state => {
-      state.status = null;
-      state.solution = null;
+    resetDifficulty: state => {
+      state.difficulty = null;
     }
   },
   extraReducers: {
-    [solve.pending]: state => {
+    [grade.pending]: state => {
       state.ui.isPending = true;
       state.ui.hasSuccess = false;
       state.ui.hasError = false;
     },
-    [solve.fulfilled]: (state, action) => {
+    [grade.fulfilled]: (state, action) => {
       state.ui.isPending = false;
       state.ui.hasSuccess = true;
       state.ui.hasError = false;
-      state.solution = action.payload.data.solution;
-      state.status = action.payload.data.status;
+      state.difficulty = action.payload.data.difficulty;
     },
-    [solve.rejected]: state => {
+    [grade.rejected]: state => {
       state.ui.isPending = false;
       state.ui.hasSuccess = false;
       state.ui.hasError = true;
@@ -63,4 +60,4 @@ const solveSlice = createSlice({
   }
 });
 
-export { solveSlice, solve };
+export { gradeSlice, grade };

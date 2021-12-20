@@ -7,12 +7,14 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import { boardSlice } from './slices/board';
+import { gradeSlice } from './slices/grade';
 import { solveSlice } from './slices/solve';
 import { validateSlice } from './slices/validate';
 
 const store = configureStore({
   reducer: combineReducers({
     board: boardSlice.reducer,
+    grade: gradeSlice.reducer,
     solve: solveSlice.reducer,
     validate: validateSlice.reducer
   }),
@@ -26,7 +28,9 @@ const store = configureStore({
           'post/validate/fulfilled',
           'post/validate/rejected',
           'post/solve/fulfilled',
-          'post/solve/rejected'
+          'post/solve/rejected',
+          'post/grade/fulfilled',
+          'post/grade/rejected'
         ]
       }
     })

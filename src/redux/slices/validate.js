@@ -8,15 +8,15 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { convertObjectToFormData } from '../../utilities';
-import { API_ROOT_CREATE } from '../../constants';
+import { API_ROOT_CREATE, STATUS } from '../../constants';
 
 const initialState = {
   ui: {
     isPending: false,
-    hasSuccess: true,
+    hasSuccess: false,
     hasError: false
   },
-  status: 'unsolved'
+  status: STATUS.UNSOLVED
 };
 
 const validate = createAsyncThunk('post/validate', (options, thunkAPI) =>
@@ -38,6 +38,9 @@ const validateSlice = createSlice({
   reducers: {
     setStatus: (state, action) => {
       state.status = action.payload.status;
+    },
+    resetStatus: state => {
+      state.status = STATUS.UNSOLVED;
     }
   },
   extraReducers: {

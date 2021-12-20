@@ -15,7 +15,7 @@ const initialState = {
     hasSuccess: false,
     hasError: false
   },
-  difficulty: 'easy',
+  difficulty: null,
   puzzle: {
     ordering: [
       ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9'],
