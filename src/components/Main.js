@@ -46,6 +46,7 @@ const mapDifficultyToColor = {
 const mapStatusToVariant = {
   [STATUS.BROKEN]: 'filled',
   [STATUS.UNSOLVED]: 'filled',
+  [STATUS.UNSOLVABLE]: 'filled',
   [STATUS.SOLVED]: 'outlined'
 };
 
