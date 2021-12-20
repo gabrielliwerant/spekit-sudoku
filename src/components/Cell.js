@@ -12,6 +12,13 @@ const BACKSPACE_KEY = 'Backspace';
 const DELETE_KEY = 'Delete';
 
 const useStyles = createUseStyles({
+  srOnly: {
+    position: 'absolute !important',
+    height: '1px',
+    width: '1px',
+    overflow: 'hidden',
+    clip: 'rect(1px, 1px, 1px, 1px)'
+  },
   cell: {
     width: '50px',
     height: '50px',
@@ -50,21 +57,29 @@ const Cell = props => {
   };
 
   return (
-    <input
-      type="number"
-      min="1"
-      max="9"
-      maxLength="1"
-      value={puzzleCell || ''}
-      readOnly={!!originalCell}
-      onKeyDown={onHandleKeyDown}
-      onChange={onHandleChange(cellKey)}
-      className={classNames({
-        [classes.cell]: true,
-        [classes.rightBorder]: isMultipleOfThreeButNotNine(columnIndex + 1),
-        [classes.bottomBorder]: isMultipleOfThreeButNotNine(rowIndex + 1)
-      })}
-    />
+    <>
+      <label htmlFor={cellKey} className={classes.srOnly}>
+        {cellKey}
+      </label>
+      <input
+        id={cellKey}
+        data-testid={cellKey}
+        aria-label={cellKey}
+        type="number"
+        min="1"
+        max="9"
+        maxLength="1"
+        value={puzzleCell || ''}
+        readOnly={!!originalCell}
+        onKeyDown={onHandleKeyDown}
+        onChange={onHandleChange(cellKey)}
+        className={classNames({
+          [classes.cell]: true,
+          [classes.rightBorder]: isMultipleOfThreeButNotNine(columnIndex + 1),
+          [classes.bottomBorder]: isMultipleOfThreeButNotNine(rowIndex + 1)
+        })}
+      />
+    </>
   );
 };
 
@@ -87,3 +102,4 @@ const mapDispatchToProps = {
 };
 
 export default connect(null, mapDispatchToProps)(Cell);
+export { Cell };
