@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { StyledEngineProvider } from '@mui/material/styles';
 
 import { selectHasSuccess } from '../redux/selectors/board';
 import { selectSolution } from '../redux/selectors/solve';
@@ -25,14 +26,14 @@ const Main = props => {
   }, [hasSolution]);
 
   return (
-    <>
+    <StyledEngineProvider injectFirst>
       <h1>Spekit Sudoku</h1>
       <GenerateButton />
       <ClearButton />
       <ValidateButton />
       <SolveButton />
       {hasSuccess && <Board />}
-    </>
+    </StyledEngineProvider>
   );
 };
 
