@@ -14,6 +14,8 @@ describe('Main.js', () => {
       </Provider>
     );
 
+    expect(screen.getByText('Difficulty:')).toBeDefined();
+    expect(screen.getByText('Status:')).toBeDefined();
     expect(screen.getByRole('heading', { level: 1 }).innerHTML).toEqual(
       'Spekit Sudoku'
     );

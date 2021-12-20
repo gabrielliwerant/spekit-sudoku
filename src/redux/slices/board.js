@@ -12,7 +12,7 @@ import { API_ROOT_FETCH } from '../../constants';
 const initialState = {
   ui: {
     isPending: false,
-    hasSuccess: true,
+    hasSuccess: false,
     hasError: false
   },
   difficulty: 'easy',

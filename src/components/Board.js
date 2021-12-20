@@ -17,6 +17,8 @@ const useStyles = createUseStyles({
     display: 'flex',
     flexDirection: 'column',
     paddingInlineStart: 0,
+    marginBlockStart: 0,
+    marginBlockEnd: 0,
     width: '508px',
     border: '3px solid #000'
   },

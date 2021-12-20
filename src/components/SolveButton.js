@@ -2,39 +2,50 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { selectIsPending, selectHasError } from '../redux/selectors/solve';
+import Button from '@mui/material/Button';
+import PlayArrow from '@mui/icons-material/PlayArrow';
+
+import { selectIsPending } from '../redux/selectors/solve';
 import { selectBoard } from '../redux/selectors/validate';
 import { solve } from '../redux/slices/solve';
 
+import Loading from './Loading';
+
 const SolveButton = props => {
-  const { isPending, hasError, board, solve } = props;
+  const { isPending, board, solve } = props;
   const handleOnClick = () => solve(board);
 
   return (
     <>
-      {isPending && <div>Loading...</div>}
-      {hasError && <div>Error solving puzzle</div>}
-      <button onClick={handleOnClick}>Solve Sudoku</button>
+      <Button
+        disableElevation
+        color="primary"
+        variant="contained"
+        aria-label="solve"
+        size="small"
+        endIcon={isPending && <Loading color="white" />}
+        startIcon={<PlayArrow />}
+        onClick={handleOnClick}
+      >
+        Solve
+      </Button>
     </>
   );
 };
 
 SolveButton.propTypes = {
   isPending: PropTypes.bool,
-  hasError: PropTypes.bool,
   board: PropTypes.array,
   solve: PropTypes.func.isRequired
 };
 
 SolveButton.defaultProps = {
   isPending: false,
-  hasError: false,
   board: []
 };
 
 const mapStateToProps = state => ({
   isPending: selectIsPending(state),
-  hasError: selectHasError(state),
   board: selectBoard(state)
 });
 

@@ -15,23 +15,8 @@ describe('GenerateButton.js', () => {
       />
     );
 
-    expect(screen.getByText('easy')).toBeDefined();
+    expect(screen.getByText('Easy')).toBeDefined();
     expect(screen.queryAllByRole('button').length).toEqual(4);
-  });
-
-  it('should call generate function on render', () => {
-    const generate = jest.fn();
-
-    render(
-      <GenerateButton
-        difficulty="easy"
-        isPending={false}
-        hasError={false}
-        generate={generate}
-      />
-    );
-
-    expect(generate).toHaveBeenCalled();
   });
 
   it('should call generate function on button click', () => {
@@ -47,12 +32,12 @@ describe('GenerateButton.js', () => {
     );
 
     userEvent.click(screen.getByLabelText('easy'));
-    expect(generate).toHaveBeenCalledTimes(2);
+    expect(generate).toHaveBeenCalledTimes(1);
     userEvent.click(screen.getByLabelText('medium'));
-    expect(generate).toHaveBeenCalledTimes(3);
+    expect(generate).toHaveBeenCalledTimes(2);
     userEvent.click(screen.getByLabelText('hard'));
-    expect(generate).toHaveBeenCalledTimes(4);
+    expect(generate).toHaveBeenCalledTimes(3);
     userEvent.click(screen.getByLabelText('random'));
-    expect(generate).toHaveBeenCalledTimes(5);
+    expect(generate).toHaveBeenCalledTimes(4);
   });
 });

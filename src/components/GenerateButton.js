@@ -1,76 +1,79 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createUseStyles } from 'react-jss';
 
-import {
-  selectDifficulty,
-  selectIsPending,
-  selectHasError
-} from '../redux/selectors/board';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Typography from '@mui/material/Typography';
+
 import { generateByDifficulty } from '../redux/slices/board';
-import { DIFFICULTIES } from '../constants';
+import { DIFFICULTY } from '../constants';
+
+const useStyles = createUseStyles({
+  container: {
+    display: 'flex'
+  },
+  intro: {
+    marginRight: '1rem'
+  },
+  buttonGroup: {
+    display: 'block'
+  }
+});
 
 const GenerateButton = props => {
-  const { difficulty, isPending, hasError, generate } = props;
-  const handleOnClick = newDifficulty => () => generate(newDifficulty);
-
-  useEffect(() => generate(difficulty), []);
+  const classes = useStyles();
+  const { generate } = props;
+  const handleOnClick = difficulty => () => generate(difficulty);
 
   return (
     <>
-      {isPending && <div>Loading...</div>}
-      {hasError && <div>Error generating puzzle</div>}
-      <div>{difficulty}</div>
-      <button
-        aria-label={DIFFICULTIES.EASY}
-        onClick={handleOnClick(DIFFICULTIES.EASY)}
-      >
-        Generate Easy Sudoku
-      </button>
-      <button
-        aria-label={DIFFICULTIES.MEDIUM}
-        onClick={handleOnClick(DIFFICULTIES.MEDIUM)}
-      >
-        Generate Medium Sudoku
-      </button>
-      <button
-        aria-label={DIFFICULTIES.HARD}
-        onClick={handleOnClick(DIFFICULTIES.HARD)}
-      >
-        Generate Hard Sudoku
-      </button>
-      <button
-        aria-label={DIFFICULTIES.RANDOM}
-        onClick={handleOnClick(DIFFICULTIES.RANDOM)}
-      >
-        Generate Random Sudoku
-      </button>
+      <div className={classes.container}>
+        <Typography variant="h6" component="h2" className={classes.intro}>
+          Generate New:
+        </Typography>
+        <ButtonGroup
+          variant="outlined"
+          aria-label="generate sudoku by difficulty"
+        >
+          <Button
+            aria-label={DIFFICULTY.EASY}
+            onClick={handleOnClick(DIFFICULTY.EASY)}
+          >
+            Easy
+          </Button>
+          <Button
+            aria-label={DIFFICULTY.MEDIUM}
+            onClick={handleOnClick(DIFFICULTY.MEDIUM)}
+          >
+            Medium
+          </Button>
+          <Button
+            aria-label={DIFFICULTY.HARD}
+            onClick={handleOnClick(DIFFICULTY.HARD)}
+          >
+            Hard
+          </Button>
+          <Button
+            aria-label={DIFFICULTY.RANDOM}
+            onClick={handleOnClick(DIFFICULTY.RANDOM)}
+          >
+            Random
+          </Button>
+        </ButtonGroup>
+      </div>
     </>
   );
 };
 
 GenerateButton.propTypes = {
-  difficulty: PropTypes.string,
-  isPending: PropTypes.bool,
-  hasError: PropTypes.bool,
   generate: PropTypes.func.isRequired
 };
-
-GenerateButton.defaultProps = {
-  isPending: false,
-  hasError: false,
-  difficulty: DIFFICULTIES.EASY
-};
-
-const mapStateToProps = state => ({
-  difficulty: selectDifficulty(state),
-  isPending: selectIsPending(state),
-  hasError: selectHasError(state)
-});
 
 const mapDispatchToProps = {
   generate: difficulty => generateByDifficulty({ difficulty })
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GenerateButton);
+export default connect(null, mapDispatchToProps)(GenerateButton);
 export { GenerateButton };

@@ -2,49 +2,50 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import {
-  selectIsPending,
-  selectHasError,
-  selectBoard,
-  selectStatus
-} from '../redux/selectors/validate';
+import Button from '@mui/material/Button';
+import Check from '@mui/icons-material/Check';
+
+import { selectIsPending, selectBoard } from '../redux/selectors/validate';
 import { validate } from '../redux/slices/validate';
-import { STATUSES } from '../constants';
+
+import Loading from './Loading';
 
 const ValidateButton = props => {
-  const { isPending, hasError, validate, board, status } = props;
+  const { isPending, validate, board } = props;
   const handleOnClick = () => validate(board);
 
   return (
     <>
-      {isPending && <div>Loading...</div>}
-      {hasError && <div>Error validating puzzle</div>}
-      <div>{status}</div>
-      <button onClick={handleOnClick}>Validate Sudoku</button>
+      <Button
+        disableElevation
+        color="primary"
+        variant="contained"
+        aria-label="clear"
+        size="small"
+        endIcon={isPending && <Loading color="white" />}
+        startIcon={<Check />}
+        onClick={handleOnClick}
+      >
+        Validate
+      </Button>
     </>
   );
 };
 
 ValidateButton.propTypes = {
   isPending: PropTypes.bool,
-  hasError: PropTypes.bool,
   validate: PropTypes.func.isRequired,
-  board: PropTypes.array,
-  status: PropTypes.string
+  board: PropTypes.array
 };
 
 ValidateButton.defaultProps = {
   isPending: false,
-  hasError: false,
-  board: [],
-  status: STATUSES.UNSOLVED
+  board: []
 };
 
 const mapStateToProps = state => ({
   isPending: selectIsPending(state),
-  hasError: selectHasError(state),
-  board: selectBoard(state),
-  status: selectStatus(state)
+  board: selectBoard(state)
 });
 
 const mapDispatchToProps = {

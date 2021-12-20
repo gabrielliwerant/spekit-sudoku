@@ -6,15 +6,15 @@
 
 const API_ROOT_FETCH = 'https://vast-chamber-17969.herokuapp.com';
 const API_ROOT_CREATE = 'https://sugoku.herokuapp.com';
-const DIFFICULTIES = {
+const DIFFICULTY = {
   EASY: 'easy',
   MEDIUM: 'medium',
   HARD: 'hard',
   RANDOM: 'random'
 };
-const STATUSES = {
+const STATUS = {
   UNSOLVED: 'unsolved',
   SOLVED: 'solved'
 };
 
-export { API_ROOT_FETCH, API_ROOT_CREATE, DIFFICULTIES, STATUSES };
+export { API_ROOT_FETCH, API_ROOT_CREATE, DIFFICULTY, STATUS };

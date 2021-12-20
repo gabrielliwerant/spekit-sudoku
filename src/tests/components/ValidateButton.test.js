@@ -12,11 +12,10 @@ describe('ValidateButton.js', () => {
         hasError={false}
         validate={() => {}}
         board={[]}
-        status="unsolved"
       />
     );
 
-    expect(screen.getByText('unsolved')).toBeDefined();
+    expect(screen.getByText('Validate')).toBeDefined();
     expect(screen.getByRole('button')).toBeDefined();
   });
 
@@ -29,7 +28,6 @@ describe('ValidateButton.js', () => {
         hasError={false}
         validate={validate}
         board={[]}
-        status="unsolved"
       />
     );
 
@@ -45,7 +43,6 @@ describe('ValidateButton.js', () => {
         hasError={false}
         validate={validate}
         board={[]}
-        status="unsolved"
       />
     );
 

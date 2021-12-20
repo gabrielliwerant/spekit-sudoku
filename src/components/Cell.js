@@ -23,8 +23,9 @@ const useStyles = createUseStyles({
     width: '50px',
     height: '50px',
     fontSize: '35px',
+    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
     textAlign: 'center',
-    border: '1px solid #000',
+    border: '1px solid #aaa',
     '&::-webkit-inner-spin-button': {
       display: 'none'
     }
