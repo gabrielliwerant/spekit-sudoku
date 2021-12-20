@@ -7,7 +7,9 @@
 .gitignore
 .prettierignore
 jest.config.js
-webpack.config.js
+webpack.common.js
+webpack.dev.js
+webpack.prod.js
 
 dist
 node_modules

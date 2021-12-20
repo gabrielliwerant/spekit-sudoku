@@ -9,8 +9,8 @@
     "prettier": "prettier --write .",
     "test": "jest tests --verbose",
     "prepare": "npm run prettier && npm run lint && npm test",
-    "start": "webpack serve",
-    "build": "webpack"
+    "start": "webpack serve --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
