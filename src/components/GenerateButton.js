@@ -21,16 +21,28 @@ const GenerateButton = props => {
       {isPending && <div>Loading...</div>}
       {hasError && <div>Error generating puzzle</div>}
       <div>{difficulty}</div>
-      <button onClick={handleOnClick(DIFFICULTIES.EASY)}>
+      <button
+        aria-label={DIFFICULTIES.EASY}
+        onClick={handleOnClick(DIFFICULTIES.EASY)}
+      >
         Generate Easy Sudoku
       </button>
-      <button onClick={handleOnClick(DIFFICULTIES.MEDIUM)}>
+      <button
+        aria-label={DIFFICULTIES.MEDIUM}
+        onClick={handleOnClick(DIFFICULTIES.MEDIUM)}
+      >
         Generate Medium Sudoku
       </button>
-      <button onClick={handleOnClick(DIFFICULTIES.HARD)}>
+      <button
+        aria-label={DIFFICULTIES.HARD}
+        onClick={handleOnClick(DIFFICULTIES.HARD)}
+      >
         Generate Hard Sudoku
       </button>
-      <button onClick={handleOnClick(DIFFICULTIES.RANDOM)}>
+      <button
+        aria-label={DIFFICULTIES.RANDOM}
+        onClick={handleOnClick(DIFFICULTIES.RANDOM)}
+      >
         Generate Random Sudoku
       </button>
     </>
@@ -61,3 +73,4 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GenerateButton);
+export { GenerateButton };
