@@ -16,3 +16,9 @@ Sudoku app built in reactjs, based on the [sugoku project](https://github.com/be
 - `npm test`: Run test suite
 - `npm run prepare`: Run prettier, linting, and test suite
 - `npm run build`: Run build process
+
+## Roadmap
+
+- Refactor state to consolidate `difficulty` and `status`
+- Improve accessibility (e.g. allow tabbing through cells)
+- Add moar tests
