@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 import { StyledEngineProvider } from '@mui/material/styles';
 
-import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 
 import {
@@ -23,8 +22,8 @@ import {
   selectSolution,
   selectStatus as selectStatusSolve
 } from '../redux/selectors/solve';
-import { selectStatus as selectStatusValidate } from '../redux/selectors/validate';
 import { boardSlice, generateByDifficulty } from '../redux/slices/board';
+import { solveSlice } from '../redux/slices/solve';
 import { validateSlice } from '../redux/slices/validate';
 import { STATUS, DIFFICULTY } from '../constants';
 
@@ -35,20 +34,8 @@ import GenerateButton from './GenerateButton';
 import GradeButton from './GradeButton';
 import Loading from './Loading';
 import SolveButton from './SolveButton';
+import Status from './Status';
 import ValidateButton from './ValidateButton';
-
-const mapDifficultyToColor = {
-  [DIFFICULTY.EASY]: 'success',
-  [DIFFICULTY.MEDIUM]: 'warning',
-  [DIFFICULTY.HARD]: 'error'
-};
-
-const mapStatusToVariant = {
-  [STATUS.BROKEN]: 'filled',
-  [STATUS.UNSOLVED]: 'filled',
-  [STATUS.UNSOLVABLE]: 'filled',
-  [STATUS.SOLVED]: 'outlined'
-};
 
 const useStyles = createUseStyles({
   main: {
@@ -79,16 +66,6 @@ const useStyles = createUseStyles({
     '& > *:last-child': {
       marginRight: 0
     }
-  },
-  container: {
-    display: 'flex'
-  },
-  status: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-  intro: {
-    marginRight: '0.5rem'
   }
 });
 
@@ -100,10 +77,10 @@ const Main = props => {
     hasSolution,
     solution,
     statusSolve,
-    statusValidate,
     difficulty,
     generate,
     setPuzzle,
+    reset,
     setStatus
   } = props;
 
@@ -113,6 +90,7 @@ const Main = props => {
       setStatus(STATUS.SOLVED);
     } else if (statusSolve === STATUS.UNSOLVABLE) {
       setStatus(statusSolve);
+      reset();
     }
   }, [hasSolution, statusSolve]);
 
@@ -137,23 +115,7 @@ const Main = props => {
             <Loading size={150} />
           </div>
         )}
-        <div className={classes.status}>
-          <div className={classes.container}>
-            <Typography variant="h6" component="h2" className={classes.intro}>
-              Difficulty:
-            </Typography>
-            <Chip label={difficulty} color={mapDifficultyToColor[difficulty]} />
-          </div>
-          <div className={classes.container}>
-            <Typography variant="h6" component="h2" className={classes.intro}>
-              Status:
-            </Typography>
-            <Chip
-              label={statusValidate}
-              variant={mapStatusToVariant[statusValidate]}
-            />
-          </div>
-        </div>
+        <Status />
         <GenerateButton />
       </main>
     </StyledEngineProvider>
@@ -165,11 +127,11 @@ Main.propTypes = {
   hasSuccess: PropTypes.bool,
   hasSolution: PropTypes.bool,
   solution: PropTypes.array,
-  statusValidate: PropTypes.string,
   statusSolve: PropTypes.string,
   difficulty: PropTypes.string,
   generate: PropTypes.func,
   setPuzzle: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
   setStatus: PropTypes.func.isRequired
 };
 
@@ -178,7 +140,6 @@ Main.defaultProps = {
   hasSolution: false,
   solution: null,
   hasSuccess: false,
-  statusValidate: STATUS.UNSOLVED,
   statusSolve: null,
   difficulty: DIFFICULTY.EASY
 };
@@ -188,7 +149,6 @@ const mapStateToProps = state => ({
   hasSuccess: selectHasSuccess(state),
   hasSolution: !!selectSolution(state),
   solution: selectSolution(state),
-  statusValidate: selectStatusValidate(state),
   statusSolve: selectStatusSolve(state),
   difficulty: selectDifficulty(state)
 });
@@ -196,6 +156,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   generate: difficulty => generateByDifficulty({ difficulty }),
   setPuzzle: solution => boardSlice.actions.setPuzzle({ solution }),
+  reset: solveSlice.actions.reset,
   setStatus: status => validateSlice.actions.setStatus({ status })
 };
 
