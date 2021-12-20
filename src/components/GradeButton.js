@@ -22,20 +22,18 @@ const GradeButton = props => {
   const handleOnClick = () => grade(board);
 
   return (
-    <>
-      <Button
-        disableElevation
-        color="primary"
-        variant="contained"
-        aria-label="grade"
-        size="small"
-        endIcon={isPending && <Loading color="white" />}
-        startIcon={<Assignment />}
-        onClick={handleOnClick}
-      >
-        Grade
-      </Button>
-    </>
+    <Button
+      disableElevation
+      color="primary"
+      variant="contained"
+      aria-label="grade"
+      size="small"
+      endIcon={isPending && <Loading color="white" />}
+      startIcon={<Assignment />}
+      onClick={handleOnClick}
+    >
+      Grade
+    </Button>
   );
 };
 

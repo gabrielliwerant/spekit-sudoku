@@ -42,42 +42,40 @@ const GenerateButton = props => {
   };
 
   return (
-    <>
-      <div className={classes.container}>
-        <Typography variant="h6" component="h2" className={classes.intro}>
-          Generate New:
-        </Typography>
-        <ButtonGroup
-          variant="outlined"
-          aria-label="generate sudoku by difficulty"
+    <div className={classes.container}>
+      <Typography variant="h6" component="h2" className={classes.intro}>
+        Generate New:
+      </Typography>
+      <ButtonGroup
+        variant="outlined"
+        aria-label="generate sudoku by difficulty"
+      >
+        <Button
+          aria-label={DIFFICULTY.EASY}
+          onClick={handleOnClick(DIFFICULTY.EASY)}
         >
-          <Button
-            aria-label={DIFFICULTY.EASY}
-            onClick={handleOnClick(DIFFICULTY.EASY)}
-          >
-            Easy
-          </Button>
-          <Button
-            aria-label={DIFFICULTY.MEDIUM}
-            onClick={handleOnClick(DIFFICULTY.MEDIUM)}
-          >
-            Medium
-          </Button>
-          <Button
-            aria-label={DIFFICULTY.HARD}
-            onClick={handleOnClick(DIFFICULTY.HARD)}
-          >
-            Hard
-          </Button>
-          <Button
-            aria-label={DIFFICULTY.RANDOM}
-            onClick={handleOnClick(DIFFICULTY.RANDOM)}
-          >
-            Random
-          </Button>
-        </ButtonGroup>
-      </div>
-    </>
+          Easy
+        </Button>
+        <Button
+          aria-label={DIFFICULTY.MEDIUM}
+          onClick={handleOnClick(DIFFICULTY.MEDIUM)}
+        >
+          Medium
+        </Button>
+        <Button
+          aria-label={DIFFICULTY.HARD}
+          onClick={handleOnClick(DIFFICULTY.HARD)}
+        >
+          Hard
+        </Button>
+        <Button
+          aria-label={DIFFICULTY.RANDOM}
+          onClick={handleOnClick(DIFFICULTY.RANDOM)}
+        >
+          Random
+        </Button>
+      </ButtonGroup>
+    </div>
   );
 };
 

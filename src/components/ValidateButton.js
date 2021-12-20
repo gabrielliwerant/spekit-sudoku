@@ -21,20 +21,18 @@ const ValidateButton = props => {
   const handleOnClick = () => validate(board);
 
   return (
-    <>
-      <Button
-        disableElevation
-        color="primary"
-        variant="contained"
-        aria-label="clear"
-        size="small"
-        endIcon={isPending && <Loading color="white" />}
-        startIcon={<Check />}
-        onClick={handleOnClick}
-      >
-        Validate
-      </Button>
-    </>
+    <Button
+      disableElevation
+      color="primary"
+      variant="contained"
+      aria-label="clear"
+      size="small"
+      endIcon={isPending && <Loading color="white" />}
+      startIcon={<Check />}
+      onClick={handleOnClick}
+    >
+      Validate
+    </Button>
   );
 };
 

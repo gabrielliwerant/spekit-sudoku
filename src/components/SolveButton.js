@@ -22,20 +22,18 @@ const SolveButton = props => {
   const handleOnClick = () => solve(board);
 
   return (
-    <>
-      <Button
-        disableElevation
-        color="primary"
-        variant="contained"
-        aria-label="solve"
-        size="small"
-        endIcon={isPending && <Loading color="white" />}
-        startIcon={<PlayArrow />}
-        onClick={handleOnClick}
-      >
-        Solve
-      </Button>
-    </>
+    <Button
+      disableElevation
+      color="primary"
+      variant="contained"
+      aria-label="solve"
+      size="small"
+      endIcon={isPending && <Loading color="white" />}
+      startIcon={<PlayArrow />}
+      onClick={handleOnClick}
+    >
+      Solve
+    </Button>
   );
 };
 
