@@ -75,7 +75,7 @@ const useStyles = createUseStyles({
     justifyContent: 'space-between'
   },
   intro: {
-    marginRight: '1rem'
+    marginRight: '0.5rem'
   }
 });
 

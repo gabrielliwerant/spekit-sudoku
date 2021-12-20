@@ -25,9 +25,24 @@ const useStyles = createUseStyles({
     fontSize: '35px',
     fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
     textAlign: 'center',
-    border: '1px solid #aaa',
+    border: '1px solid #bbb',
     '&::-webkit-inner-spin-button': {
       display: 'none'
+    },
+    '&:focus-visible': {
+      outline: 'none'
+    }
+  },
+  originalCell: {
+    cursor: 'not-allowed'
+  },
+  puzzleCell: {
+    cursor: 'pointer',
+    '&:hover': {
+      background: '#eee'
+    },
+    '&:focus-visible': {
+      background: 'rgb(229, 246, 253)'
     }
   },
   rightBorder: {
@@ -76,6 +91,8 @@ const Cell = props => {
         onChange={onHandleChange(cellKey)}
         className={classNames({
           [classes.cell]: true,
+          [classes.originalCell]: !!originalCell,
+          [classes.puzzleCell]: !originalCell,
           [classes.rightBorder]: isMultipleOfThreeButNotNine(columnIndex + 1),
           [classes.bottomBorder]: isMultipleOfThreeButNotNine(rowIndex + 1)
         })}

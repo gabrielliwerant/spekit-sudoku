@@ -15,7 +15,7 @@ const useStyles = createUseStyles({
     display: 'flex'
   },
   intro: {
-    marginRight: '1rem'
+    marginRight: '0.5rem'
   },
   buttonGroup: {
     display: 'block'
