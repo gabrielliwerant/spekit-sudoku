@@ -33,7 +33,7 @@ const Board = props => {
   const { ordering, puzzle, original, RenderCell } = props;
 
   return (
-    <ol className={classes.board}>
+    <ol data-testid="board" className={classes.board}>
       {ordering.map((row, i) => (
         <ol key={i} className={classes.row}>
           {row.map((cell, j) => (
