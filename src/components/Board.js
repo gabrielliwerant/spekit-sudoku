@@ -30,7 +30,7 @@ const useStyles = createUseStyles({
 
 const Board = props => {
   const classes = useStyles();
-  const { ordering, puzzle, original } = props;
+  const { ordering, puzzle, original, RenderCell } = props;
 
   return (
     <ol className={classes.board}>
@@ -38,7 +38,7 @@ const Board = props => {
         <ol key={i} className={classes.row}>
           {row.map((cell, j) => (
             <li key={cell}>
-              <Cell
+              <RenderCell
                 columnIndex={j}
                 rowIndex={i}
                 cellKey={cell}
@@ -56,13 +56,15 @@ const Board = props => {
 Board.propTypes = {
   ordering: PropTypes.array,
   puzzle: PropTypes.object,
-  original: PropTypes.object
+  original: PropTypes.object,
+  RenderCell: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 
 Board.defaultProps = {
   ordering: [],
   puzzle: {},
-  original: {}
+  original: {},
+  RenderCell: Cell
 };
 
 const mapStateToProps = state => ({
@@ -72,3 +74,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, null)(Board);
+export { Board };
