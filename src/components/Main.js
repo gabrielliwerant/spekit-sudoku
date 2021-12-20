@@ -47,7 +47,7 @@ const useStyles = createUseStyles({
     margin: 'auto',
     width: '514px',
     '& > *': {
-      marginBottom: '1rem'
+      marginBottom: '1.25rem'
     },
     '& > *:last-child': {
       marginBottom: 0
@@ -63,7 +63,7 @@ const useStyles = createUseStyles({
   },
   actions: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
     '& > *': {
       marginRight: '0.25rem'
