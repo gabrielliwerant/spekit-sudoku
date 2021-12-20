@@ -16,6 +16,7 @@ const initialState = {
     hasSuccess: true,
     hasError: false
   },
+  status: null,
   solution: null
 };
 
@@ -47,6 +48,7 @@ const solveSlice = createSlice({
       state.ui.hasSuccess = true;
       state.ui.hasError = false;
       state.solution = action.payload.data.solution;
+      state.status = action.payload.data.status;
     },
     [solve.rejected]: state => {
       state.ui.isPending = false;

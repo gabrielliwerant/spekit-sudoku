@@ -12,8 +12,11 @@ import {
   selectHasSuccess,
   selectDifficulty
 } from '../redux/selectors/board';
-import { selectSolution } from '../redux/selectors/solve';
-import { selectStatus } from '../redux/selectors/validate';
+import {
+  selectSolution,
+  selectStatus as selectStatusSolve
+} from '../redux/selectors/solve';
+import { selectStatus as selectStatusValidate } from '../redux/selectors/validate';
 import { boardSlice, generateByDifficulty } from '../redux/slices/board';
 import { validateSlice } from '../redux/slices/validate';
 import { STATUS, DIFFICULTY } from '../constants';
@@ -33,6 +36,7 @@ const mapDifficultyToColor = {
 };
 
 const mapStatusToVariant = {
+  [STATUS.BROKEN]: 'filled',
   [STATUS.UNSOLVED]: 'filled',
   [STATUS.SOLVED]: 'outlined'
 };
@@ -86,7 +90,8 @@ const Main = props => {
     hasSuccess,
     hasSolution,
     solution,
-    status,
+    statusSolve,
+    statusValidate,
     difficulty,
     generate,
     setPuzzle,
@@ -94,11 +99,13 @@ const Main = props => {
   } = props;
 
   useEffect(() => {
-    if (hasSolution) {
+    if (hasSolution && statusSolve === STATUS.SOLVED) {
       setPuzzle(solution);
       setStatus(STATUS.SOLVED);
+    } else {
+      setStatus(STATUS.UNSOLVABLE);
     }
-  }, [hasSolution]);
+  }, [hasSolution, statusSolve]);
 
   useEffect(() => generate(difficulty), []);
 
@@ -131,7 +138,10 @@ const Main = props => {
             <Typography variant="h6" component="h2" className={classes.intro}>
               Status:
             </Typography>
-            <Chip label={status} variant={mapStatusToVariant[status]} />
+            <Chip
+              label={statusValidate}
+              variant={mapStatusToVariant[statusValidate]}
+            />
           </div>
         </div>
         <GenerateButton />
@@ -145,7 +155,8 @@ Main.propTypes = {
   hasSuccess: PropTypes.bool,
   hasSolution: PropTypes.bool,
   solution: PropTypes.array,
-  status: PropTypes.string,
+  statusValidate: PropTypes.string,
+  statusSolve: PropTypes.string,
   difficulty: PropTypes.string,
   generate: PropTypes.func,
   setPuzzle: PropTypes.func.isRequired,
@@ -157,7 +168,8 @@ Main.defaultProps = {
   hasSolution: false,
   solution: null,
   hasSuccess: false,
-  status: STATUS.UNSOLVED,
+  statusValidate: STATUS.UNSOLVED,
+  statusSolve: null,
   difficulty: DIFFICULTY.EASY
 };
 
@@ -166,7 +178,8 @@ const mapStateToProps = state => ({
   hasSuccess: selectHasSuccess(state),
   hasSolution: !!selectSolution(state),
   solution: selectSolution(state),
-  status: selectStatus(state),
+  statusValidate: selectStatusValidate(state),
+  statusSolve: selectStatusSolve(state),
   difficulty: selectDifficulty(state)
 });
 

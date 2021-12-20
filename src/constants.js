@@ -15,7 +15,9 @@ const DIFFICULTY = {
   RANDOM: 'random'
 };
 const STATUS = {
+  BROKEN: 'broken',
   UNSOLVED: 'unsolved',
+  UNSOLVABLE: 'unsolvable',
   SOLVED: 'solved'
 };
 
