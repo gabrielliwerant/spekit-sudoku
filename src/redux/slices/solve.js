@@ -8,8 +8,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { convertObjectToFormData } from '../../utilities';
-
-const API_ROOT_CREATE = 'https://sugoku.herokuapp.com';
+import { API_ROOT_CREATE } from '../../constants';
 
 const initialState = {
   ui: {

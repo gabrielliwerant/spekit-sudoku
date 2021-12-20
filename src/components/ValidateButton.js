@@ -9,6 +9,7 @@ import {
   selectStatus
 } from '../redux/selectors/validate';
 import { validate } from '../redux/slices/validate';
+import { STATUSES } from '../constants';
 
 const ValidateButton = props => {
   const { isPending, hasError, validate, board, status } = props;
@@ -36,7 +37,7 @@ ValidateButton.defaultProps = {
   isPending: false,
   hasError: false,
   board: [],
-  status: 'unsolved'
+  status: STATUSES.UNSOLVED
 };
 
 const mapStateToProps = state => ({

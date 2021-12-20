@@ -7,7 +7,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_ROOT_FETCH = 'https://vast-chamber-17969.herokuapp.com';
+import { API_ROOT_FETCH } from '../../constants';
 
 const initialState = {
   ui: {
