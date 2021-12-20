@@ -43,3 +43,4 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SolveButton);
+export { SolveButton };
