@@ -8,13 +8,8 @@ import {
   selectPuzzleData,
   selectOriginal
 } from '../redux/selectors/board';
-import { boardSlice } from '../redux/slices/board';
-import { isMultipleOfThreeButNotNine } from '../utilities';
 
-const classNames = require('classnames');
-
-const BACKSPACE_KEY = 'Backspace';
-const DELETE_KEY = 'Delete';
+import Cell from './Cell';
 
 const useStyles = createUseStyles({
   '@global': {},
@@ -30,40 +25,12 @@ const useStyles = createUseStyles({
     listStyle: 'none',
     marginTop: '-1px',
     paddingInlineStart: 0
-  },
-  cell: {
-    width: '50px',
-    height: '50px',
-    fontSize: '35px',
-    textAlign: 'center',
-    border: '1px solid #000',
-    '&::-webkit-inner-spin-button': {
-      display: 'none'
-    }
-  },
-  rightBorder: {
-    borderRight: '3px solid #000'
-  },
-  bottomBorder: {
-    borderBottom: '3px solid #000'
   }
 });
 
 const Board = props => {
   const classes = useStyles();
-  const { ordering, puzzle, original, change } = props;
-  const onKeyDown = e => {
-    const value = parseInt(e.key, 10);
-
-    if (e.key === BACKSPACE_KEY || e.key === DELETE_KEY) return;
-    if (isNaN(value) || value < 1 || value > 9) e.preventDefault();
-  };
-  const onChange = key => e => {
-    const { value } = e.target;
-
-    if (parseInt(value, 10) < 1 || parseInt(value, 10) > 9) return;
-    else change(key, value);
-  };
+  const { ordering, puzzle, original } = props;
 
   return (
     <ol className={classes.board}>
@@ -71,20 +38,12 @@ const Board = props => {
         <ol key={i} className={classes.row}>
           {row.map((cell, j) => (
             <li key={cell}>
-              <input
-                type="number"
-                min="1"
-                max="9"
-                maxLength="1"
-                value={puzzle[cell] || ''}
-                readOnly={!!original[cell]}
-                onKeyDown={onKeyDown}
-                onChange={onChange(cell)}
-                className={classNames({
-                  [classes.cell]: true,
-                  [classes.rightBorder]: isMultipleOfThreeButNotNine(j + 1),
-                  [classes.bottomBorder]: isMultipleOfThreeButNotNine(i + 1)
-                })}
+              <Cell
+                columnIndex={j}
+                rowIndex={i}
+                cellKey={cell}
+                puzzleCell={puzzle[cell] || ''}
+                originalCell={original[cell] || ''}
               />
             </li>
           ))}
@@ -97,8 +56,7 @@ const Board = props => {
 Board.propTypes = {
   ordering: PropTypes.array,
   puzzle: PropTypes.object,
-  original: PropTypes.object,
-  change: PropTypes.func.isRequired
+  original: PropTypes.object
 };
 
 Board.defaultProps = {
@@ -113,8 +71,4 @@ const mapStateToProps = state => ({
   original: selectOriginal(state)
 });
 
-const mapDispatchToProps = {
-  change: (key, value) => boardSlice.actions.change({ key, value })
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Board);
+export default connect(mapStateToProps, null)(Board);
