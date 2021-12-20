@@ -60,6 +60,9 @@ const boardSlice = createSlice({
     },
     change: (state, action) => {
       state.puzzle.data[action.payload.key] = action.payload.value;
+    },
+    clear: state => {
+      state.puzzle.data = {};
     }
   },
   extraReducers: {

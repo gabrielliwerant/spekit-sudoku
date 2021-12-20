@@ -9,6 +9,7 @@ import { validateSlice } from '../redux/slices/validate';
 import { STATUSES } from '../constants';
 
 import Board from './Board';
+import ClearButton from './ClearButton';
 import GenerateButton from './GenerateButton';
 import SolveButton from './SolveButton';
 import ValidateButton from './ValidateButton';
@@ -27,6 +28,7 @@ const Main = props => {
     <>
       <h1>Spekit Sudoku</h1>
       <GenerateButton />
+      <ClearButton />
       <ValidateButton />
       <SolveButton />
       {hasSuccess && <Board />}
