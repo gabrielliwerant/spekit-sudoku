@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import Alert from '@mui/material/Alert';
 
 import { selectHasError as selectHasErrorGenerate } from '../redux/selectors/board';
+import { selectHasError as selectHasErrorGrade } from '../redux/selectors/grade';
 import { selectHasError as selectHasErrorSolve } from '../redux/selectors/solve';
 import { selectHasError as selectHasErrorValidate } from '../redux/selectors/validate';
 
 const Errors = props => {
-  const { generate, solve, validate } = props;
+  const { generate, grade, solve, validate } = props;
 
   return (
     <>
@@ -28,24 +29,32 @@ const Errors = props => {
           Error validating puzzle
         </Alert>
       )}
+      {grade && (
+        <Alert variant="filled" severity="error">
+          Error grading puzzle
+        </Alert>
+      )}
     </>
   );
 };
 
 Errors.propTypes = {
   generate: PropTypes.bool,
+  grade: PropTypes.bool,
   solve: PropTypes.bool,
   validate: PropTypes.bool
 };
 
 Errors.defaultProps = {
   generate: false,
+  grade: false,
   solve: false,
   validate: false
 };
 
 const mapStateToProps = state => ({
   generate: selectHasErrorGenerate(state),
+  grade: selectHasErrorGrade(state),
   solve: selectHasErrorSolve(state),
   validate: selectHasErrorValidate(state)
 });
