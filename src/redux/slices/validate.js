@@ -35,7 +35,11 @@ const validate = createAsyncThunk('post/validate', (options, thunkAPI) =>
 const validateSlice = createSlice({
   name: 'validate',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setStatus: (state, action) => {
+      state.status = action.payload.status;
+    }
+  },
   extraReducers: {
     [validate.pending]: state => {
       state.ui.isPending = true;

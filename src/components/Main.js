@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { selectHasSuccess } from '../redux/selectors/board';
 import { selectSolution } from '../redux/selectors/solve';
 import { boardSlice } from '../redux/slices/board';
+import { validateSlice } from '../redux/slices/validate';
+import { STATUSES } from '../constants';
 
 import Board from './Board';
 import GenerateButton from './GenerateButton';
@@ -12,10 +14,13 @@ import SolveButton from './SolveButton';
 import ValidateButton from './ValidateButton';
 
 const Main = props => {
-  const { hasSuccess, hasSolution, solution, set } = props;
+  const { hasSuccess, hasSolution, solution, setPuzzle, setStatus } = props;
 
   useEffect(() => {
-    if (hasSolution) set(solution);
+    if (hasSolution) {
+      setPuzzle(solution);
+      setStatus(STATUSES.SOLVED);
+    }
   }, [hasSolution]);
 
   return (
@@ -33,7 +38,9 @@ Main.propTypes = {
   hasSuccess: PropTypes.bool,
   hasSolution: PropTypes.bool,
   solution: PropTypes.array,
-  set: PropTypes.func.isRequired
+  status: PropTypes.string,
+  setPuzzle: PropTypes.func.isRequired,
+  setStatus: PropTypes.func.isRequired
 };
 
 Main.defaultProps = {
@@ -49,7 +56,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  set: solution => boardSlice.actions.setPuzzle({ solution })
+  setPuzzle: solution => boardSlice.actions.setPuzzle({ solution }),
+  setStatus: status => validateSlice.actions.setStatus({ status })
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

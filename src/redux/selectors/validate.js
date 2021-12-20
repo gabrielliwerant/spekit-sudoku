@@ -9,6 +9,8 @@ import { selectPuzzleData, selectOrdering } from './board';
 const selectValidate = state => state.validate;
 
 const selectUi = state => selectValidate(state).ui;
+const selectStatus = state => selectValidate(state).status;
+
 const selectIsPending = state => selectUi(state).isPending;
 const selectHasError = state => selectUi(state).hasError;
 
@@ -23,6 +25,5 @@ const selectBoard = state => {
     })
   );
 };
-const selectStatus = state => selectValidate(state).status;
 
 export { selectIsPending, selectHasError, selectBoard, selectStatus };
