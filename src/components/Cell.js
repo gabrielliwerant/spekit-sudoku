@@ -5,11 +5,9 @@ import { createUseStyles } from 'react-jss';
 
 import { boardSlice } from '../redux/slices/board';
 import { isMultipleOfThreeButNotNine } from '../utilities';
+import { BACKSPACE_KEY, DELETE_KEY } from '../constants';
 
 const classNames = require('classnames');
-
-const BACKSPACE_KEY = 'Backspace';
-const DELETE_KEY = 'Delete';
 
 const useStyles = createUseStyles({
   srOnly: {
