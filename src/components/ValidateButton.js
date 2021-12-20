@@ -52,3 +52,4 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ValidateButton);
+export { ValidateButton };
