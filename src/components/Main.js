@@ -1,3 +1,10 @@
+/**
+ * Main
+ *
+ * Handles the main section of the application, containing puzzle board, title,
+ * statuses, and the various actions available.
+ */
+
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

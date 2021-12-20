@@ -1,3 +1,10 @@
+/**
+ * Cell
+ *
+ * Handles the display and functionality of individual cells in the puzzle
+ * board.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

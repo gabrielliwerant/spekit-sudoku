@@ -1,3 +1,9 @@
+/**
+ * ClearButton
+ *
+ * Handles display and functionality of the clear button.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

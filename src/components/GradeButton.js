@@ -1,3 +1,9 @@
+/**
+ * GradeButton
+ *
+ * Handles the display and functionality of the grade button.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

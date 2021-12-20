@@ -1,3 +1,9 @@
+/**
+ * SolveButton
+ *
+ * Handles the display and functionality of the solve button.
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
